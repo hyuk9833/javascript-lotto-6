@@ -21,6 +21,10 @@ class App {
   }
 
   addLottoNumbers(lottoNo){
+    lottoNo.forEach(element => {
+      throw element>45||element<1?new Error('[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.'):'';
+    });
+
     this.#lottoNumbers.push(lottoNo);
   }
   
@@ -37,10 +41,11 @@ class App {
 
     printBuyLottoNumbers(this.#lottoNumbers);
     
-    // for(let lottoNo of this.#lottoNumbers){
-    //   const lotto = new Lotto(lottoNo);
+    for(let lottoNo of this.#lottoNumbers){
+      const lotto = new Lotto(lottoNo);
 
-    // }
+    }
+
   }
 }
 
