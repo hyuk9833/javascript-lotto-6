@@ -16,9 +16,12 @@ class Lotto {
     return this.#numbers;
   }
 
-  countWinningLotto(){
-    
-    return ;
+  countWinningLotto(inputWinningNo, inputBonusNo) {
+    let count = 0;
+    for(let number of inputWinningNo) {
+      this.#numbers.includes(number) ? count += 1 : '';
+    }
+    return count+'개 일치';
   }
 }
 

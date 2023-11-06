@@ -80,7 +80,7 @@ class App {
     printBuyLottoNumbers(this.#lottoNumbers);
     
     this.#inputWinningNo = inputWinningNo(await Console.readLineAsync('당첨 번호를 입력해 주세요.'));
-    //this.#inputBonusNo = inputBonusNo(await Console.readLineAsync('보너스 번호를 입력해 주세요.'));
+    this.#inputBonusNo = inputBonusNo(await Console.readLineAsync('보너스 번호를 입력해 주세요.'));
 
     for(let i of this.#lottoNumbers){
       const lotto = new Lotto(i);
