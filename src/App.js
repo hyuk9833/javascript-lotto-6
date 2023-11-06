@@ -17,13 +17,7 @@ class App {
     this.#lottoCount = 0;
     this.#lottoNumbers = [];
     this.#inputWinningNo = [];
-    this.#winningStatics = {
-      threeCorrect : 0,
-      fourCorrect : 0,
-      fiveCorrect : 0,
-      fiveAndBonusCorrect : 0,
-      sixCorrect : 0
-    }
+    this.#winningStatics = [0, 0, 0, 0, 0];
   }
 
   set lottoCount(lottoCount) {
@@ -58,12 +52,10 @@ class App {
     return this.#inputBonusNo;
   }
 
-  set winningStatics(winningStatics) {
-    this.#winningStatics.threeCorrect += winningStatics.threeCorrect;
-    this.#winningStatics.fourCorrect += winningStatics.fourCorrect;
-    this.#winningStatics.fiveCorrect += winningStatics.fiveCorrect;
-    this.#winningStatics.fiveAndBonusCorrect += winningStatics.fiveAndBonusCorrect;
-    this.#winningStatics.sixCorrect += winningStatics.sixCorrect;
+  setWinningStatics(winningStatics) {
+    for(let index in winningStatics) {
+      this.#winningStatics[index] += winningStatics[index];
+    }
   }
 
   get winningStatics() {
@@ -79,12 +71,12 @@ class App {
 
     printBuyLottoNumbers(this.#lottoNumbers);
     
-    this.#inputWinningNo = inputWinningNo(await Console.readLineAsync('당첨 번호를 입력해 주세요.'));
-    this.#inputBonusNo = inputBonusNo(await Console.readLineAsync('보너스 번호를 입력해 주세요.'));
+    this.#inputWinningNo = inputWinningNo(await Console.readLineAsync('당첨 번호를 입력해 주세요.\n'));
+    this.#inputBonusNo = inputBonusNo(await Console.readLineAsync('보너스 번호를 입력해 주세요.\n'));
 
     for(let i of this.#lottoNumbers){
       const lotto = new Lotto(i);
-      lotto.countWinningLotto(this.#inputWinningNo, this.#inputBonusNo);
+      this.setWinningStatics(lotto.countWinningLotto(this.#inputWinningNo, this.#inputBonusNo));
     }
   }
 }

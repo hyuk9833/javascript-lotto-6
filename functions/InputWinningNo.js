@@ -1,8 +1,9 @@
 function inputWinningNo(inputWinningNo) {
     let inputWinningNoTest = inputWinningNo.split(',').map(Number);
+    console.log(inputWinningNoTest);
 
     inputWinningNoTest.forEach(element => {
-        if(!isNaN(element)){
+        if(isNaN(element)){
             throw new Error('[ERROR] 숫자가 아닙니다.');
         }
     });
