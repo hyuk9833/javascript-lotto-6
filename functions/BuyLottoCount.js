@@ -3,7 +3,11 @@ function buyLottoCount(payMoney){
         throw new Error('[ERROR] 숫자가 아닙니다.');
     }
 
-    return Math.floor(payMoney / 1000);
+    if(payMoney % 1000 > 0) {
+        throw new Error('[ERROR] 잔돈이 발생합니다.');
+    }
+
+    return payMoney / 1000;
 }
 
 export default buyLottoCount;
