@@ -5,19 +5,20 @@ import printBuyLottoNumbers from "../functions/PrintBuyLottoNumbers.js";
 import Lotto from "./Lotto.js";
 import inputWinningNo from "../functions/InputWinningNo.js";
 import inputBonusNo from "../functions/inputBonusNo.js";
+import printWinningStatistics from "../functions/PrintWinningStatistics.js";
 
 class App {
   #lottoCount;
   #lottoNumbers;
   #inputWinningNo;
   #inputBonusNo;
-  #winningStatics;
+  #winningStatistics;
 
   constructor() {
     this.#lottoCount = 0;
     this.#lottoNumbers = [];
     this.#inputWinningNo = [];
-    this.#winningStatics = [0, 0, 0, 0, 0];
+    this.#winningStatistics = [0, 0, 0, 0, 0];
   }
 
   set lottoCount(lottoCount) {
@@ -52,14 +53,14 @@ class App {
     return this.#inputBonusNo;
   }
 
-  setWinningStatics(winningStatics) {
-    for(let index in winningStatics) {
-      this.#winningStatics[index] += winningStatics[index];
+  setWinningStatistics(winningStatistics) {
+    for(let index in winningStatistics) {
+      this.#winningStatistics[index] += winningStatistics[index];
     }
   }
 
-  get winningStatics() {
-    return this.#winningStatics;
+  get winningStatistics() {
+    return this.#winningStatistics;
   }
 
   async play() {
@@ -76,8 +77,11 @@ class App {
 
     for(let i of this.#lottoNumbers){
       const lotto = new Lotto(i);
-      this.setWinningStatics(lotto.countWinningLotto(this.#inputWinningNo, this.#inputBonusNo));
+      this.setWinningStatistics(lotto.countWinningLotto(this.#inputWinningNo, this.#inputBonusNo));
     }
+
+    printWinningStatistics(this.#winningStatistics);
+
   }
 }
 
