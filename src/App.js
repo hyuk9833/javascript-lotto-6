@@ -2,34 +2,72 @@ import { Console } from "@woowacourse/mission-utils";
 import buyLottoCount from "../functions/buyLottoCount.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
 import printBuyLottoNumbers from "../functions/PrintBuyLottoNumbers.js";
+import Lotto from "./Lotto.js";
+import inputWinningNo from "../functions/InputWinningNo.js";
+import inputBonusNo from "../functions/inputBonusNo.js";
 
 class App {
   #lottoCount;
   #lottoNumbers;
+  #inputWinningNo;
+  #inputBonusNo;
+  #winningStatics;
 
-  constructor(){
+  constructor() {
     this.#lottoCount = 0;
     this.#lottoNumbers = [];
+    this.#inputWinningNo = [];
+    this.#winningStatics = {
+      threeCorrect : 0,
+      fourCorrect : 0,
+      fiveCorrect : 0,
+      fiveAndBonusCorrect : 0,
+      sixCorrect : 0
+    }
   }
 
-  set lottoCount(lottoCount){
+  set lottoCount(lottoCount) {
     this.#lottoCount = lottoCount
   } 
 
-  get lottoCount(){
+  get lottoCount() {
     return this.#lottoCount;
   }
 
-  addLottoNumbers(lottoNo){
-    lottoNo.forEach(element => {
-      throw element>45||element<1?new Error('[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.'):'';
-    });
-
+  addLottoNumbers(lottoNo) {
     this.#lottoNumbers.push(lottoNo);
   }
   
-  get lottoNumbers(){
+  get lottoNumbers() {
     return this.#lottoNumbers;
+  }
+
+  set inputWinningNo(inputWinningNo) {
+    this.#inputWinningNo = inputWinningNo;
+  }
+
+  get inputWinningNo() {
+    return this.#inputWinningNo;
+  }
+
+  set inputBonusNo(inputBonusNo) {
+    this.#inputBonusNo = inputBonusNo
+  }
+
+  get inputBonusNo() {
+    return this.#inputBonusNo;
+  }
+
+  set winningStatics(winningStatics) {
+    this.#winningStatics.threeCorrect += winningStatics.threeCorrect;
+    this.#winningStatics.fourCorrect += winningStatics.fourCorrect;
+    this.#winningStatics.fiveCorrect += winningStatics.fiveCorrect;
+    this.#winningStatics.fiveAndBonusCorrect += winningStatics.fiveAndBonusCorrect;
+    this.#winningStatics.sixCorrect += winningStatics.sixCorrect;
+  }
+
+  get winningStatics() {
+    return this.#winningStatics;
   }
 
   async play() {
@@ -41,11 +79,13 @@ class App {
 
     printBuyLottoNumbers(this.#lottoNumbers);
     
-    for(let lottoNo of this.#lottoNumbers){
-      const lotto = new Lotto(lottoNo);
+    this.#inputWinningNo = inputWinningNo(await Console.readLineAsync('당첨 번호를 입력해 주세요.'));
+    //this.#inputBonusNo = inputBonusNo(await Console.readLineAsync('보너스 번호를 입력해 주세요.'));
 
+    for(let i of this.#lottoNumbers){
+      const lotto = new Lotto(i);
+      lotto.countWinningLotto(this.#inputWinningNo, this.#inputBonusNo);
     }
-
   }
 }
 
