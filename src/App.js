@@ -6,6 +6,7 @@ import Lotto from "./Lotto.js";
 import inputWinningNo from "../functions/InputWinningNo.js";
 import inputBonusNo from "../functions/inputBonusNo.js";
 import printWinningStatistics from "../functions/PrintWinningStatistics.js";
+import printProfitRate from "../functions/PrintProfitRate.js";
 
 class App {
   #lottoCount;
@@ -81,7 +82,8 @@ class App {
     }
 
     printWinningStatistics(this.#winningStatistics);
-
+   
+    printProfitRate(this.#lottoCount, this.#winningStatistics);
   }
 }
 
